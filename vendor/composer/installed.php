@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '9a9febf81bc4ceabed9d8f41d06cd241902dfaf5',
+        'reference' => 'e6d532f9c014f2ea90a8242bbe5989829c39b433',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,9 +13,27 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '9a9febf81bc4ceabed9d8f41d06cd241902dfaf5',
+            'reference' => 'e6d532f9c014f2ea90a8242bbe5989829c39b433',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'doctrine/dbal' => array(
+            'pretty_version' => '5.0.x-dev',
+            'version' => '5.0.9999999.9999999-dev',
+            'reference' => '660cc2e4fbf4e1bc086a8fdd1d36216097371f60',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/dbal',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'doctrine/deprecations' => array(
+            'pretty_version' => '1.1.x-dev',
+            'version' => '1.1.9999999.9999999-dev',
+            'reference' => '459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/deprecations',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -46,10 +64,21 @@
         'php/framework-pro' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e72cdd83b4f6ff97d1fcdbb875c39c325da4e359',
+            'reference' => '90a18f09158c4c21a2c1fc6bdedab2820d7d7ffe',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php/framework-pro',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'psr/cache' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '588d5ff7035e78cd4f69eb798890749ac4641b30',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/cache',
+            'aliases' => array(
+                0 => '3.0.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'psr/container' => array(
@@ -68,6 +97,17 @@
             'provided' => array(
                 0 => '^1.0',
             ),
+        ),
+        'psr/log' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'f16e1d5863e37f8d8c2a01719f5b34baa2b714d3',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/log',
+            'aliases' => array(
+                0 => '3.x-dev',
+            ),
+            'dev_requirement' => false,
         ),
         'symfony/deprecation-contracts' => array(
             'pretty_version' => 'dev-main',

@@ -29,10 +29,13 @@ class ComposerStaticInit7d107ca7b1653496aab979e1a82e29c4
         'R' => 
         array (
             'Raj\\Framework\\' => 14,
+            'Raj\\Controllers\\' => 16,
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
+            'Psr\\Cache\\' => 10,
         ),
         'L' => 
         array (
@@ -41,6 +44,11 @@ class ComposerStaticInit7d107ca7b1653496aab979e1a82e29c4
         'F' => 
         array (
             'FastRoute\\' => 10,
+        ),
+        'D' => 
+        array (
+            'Doctrine\\Deprecations\\' => 22,
+            'Doctrine\\DBAL\\' => 14,
         ),
         'A' => 
         array (
@@ -73,9 +81,21 @@ class ComposerStaticInit7d107ca7b1653496aab979e1a82e29c4
         array (
             0 => __DIR__ . '/..' . '/php/framework-pro/src',
         ),
+        'Raj\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php/framework-pro/controllers',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
         'League\\Container\\' => 
         array (
@@ -84,6 +104,14 @@ class ComposerStaticInit7d107ca7b1653496aab979e1a82e29c4
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/src',
+        ),
+        'Doctrine\\DBAL\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/dbal/src',
         ),
         'App\\' => 
         array (

@@ -5,6 +5,7 @@ use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use Raj\Framework\Dbal\ConnectionFactory;
 use Raj\Framework\Http\Kernel\Kernel;
 use Raj\Framework\Routing\Router;
 use Raj\Framework\Routing\RouterInterface;
@@ -13,6 +14,11 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 $routes = include BASE_PATH.'/routes/web.php';
+
+/**
+ * Database Url 
+ */
+$databaseUrl =  'sqlite:///'.BASE_PATH.'/var/db.sqlite';
 
 /**
  * Twig location files loader 
@@ -53,5 +59,11 @@ $container->addShared('twig',Environment::class)->addArgument('filesystem-loader
 $container->add(AbstractCotroller::class);
 
 $container->inflector(AbstractCotroller::class)->invokeMethod('setContainer',[$container]);
+
+$container->add(ConnectionFactory::class)->addArgument(new StringArgument($databaseUrl));
+
+$container->addShared(\Doctrine\DBAL\Connection::class,function() use ($container): \Doctrine\DBAL\Connection{
+    return $container->get(ConnectionFactory::class)->create();
+});
 
 return $container;

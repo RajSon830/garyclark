@@ -13,6 +13,10 @@ class PostController extends AbstractCotroller{
         ]);
     }
 
+    public function create(){
+
+        return $this->render('create-post.html.twig');
+    }
 
 
 }

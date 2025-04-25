@@ -15,6 +15,7 @@
         "symfony/var-dumper": "^7.2",
         "php/framework-pro": "dev-master",
         "symfony/dotenv": "7.3.x-dev",
-        "twig/twig": "4.x-dev"
+        "twig/twig": "4.x-dev",
+        "doctrine/dbal": "5.0.x-dev"
     }
 }
