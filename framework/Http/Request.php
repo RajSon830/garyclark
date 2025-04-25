@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Http;
+namespace Raj\Framework\Http;
 
 class Request{
 
@@ -26,5 +26,8 @@ class Request{
         return $this->server['REQUEST_URI'];
     }
 
+    public function getPathInfo():string{
+        return strtok($this->server['REQUEST_URI'],'?');
+    }
 
 }

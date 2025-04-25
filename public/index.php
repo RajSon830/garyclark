@@ -1,6 +1,7 @@
 <?php 
 declare(strict_types=1);
-use App\Http\Kernel\Kernel;
+use Raj\Framework\Http\Kernel\Kernel;
+
 
 
 //request received
@@ -9,14 +10,14 @@ use App\Http\Kernel\Kernel;
 
 //send response (string of content)
 
-define("BASE_ROOT",dirname(__DIR__));
+define("BASE_PATH",dirname(__DIR__));
 
 // import autoload.php to file to setup autoloader.
-require_once BASE_ROOT.'/vendor/autoload.php';
+require_once BASE_PATH.'/vendor/autoload.php';
 
 
-use App\Http\Request;
-use App\Http\Response;
+use Raj\Framework\Http\Request;
+use Raj\Framework\Http\Routing\Router;
 
 // Creating Request Factory Method
 $request = Request::createFromGlobals();
@@ -27,7 +28,9 @@ $request = Request::createFromGlobals();
 
 $content = "Hello World";
 
-$kernel = new Kernel();
+$router = new Router();
+
+$kernel = new Kernel($router);
 
 $response = $kernel->handle($request);
 
