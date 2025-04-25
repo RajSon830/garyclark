@@ -17,7 +17,7 @@ require_once BASE_PATH.'/vendor/autoload.php';
 
 
 use Raj\Framework\Http\Request;
-use Raj\Framework\Http\Routing\Router;
+use Raj\Framework\Routing\Router;
 
 // Creating Request Factory Method
 $request = Request::createFromGlobals();
