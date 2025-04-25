@@ -1,11 +1,14 @@
 <?php 
 
-namespace Framework\Tests;
+namespace Raj\Framework\Tests;
+
 
 use PHPUnit\Framework\TestCase;
 use Raj\Framework\Container\Container;
 use Raj\Framework\Container\ContainerException;
-use Raj\Framework\Container\DependantClass;
+use Raj\Framework\Tests\DependencyClass;
+use Raj\Framework\Tests\DependentClass;
+
 
 class ContainerTest extends TestCase{
 
@@ -17,11 +20,11 @@ class ContainerTest extends TestCase{
 
         // Do Something 
         // id string, concrete class name string or object
-        $container->add('dependant-class',DependantClass::class);
+        $container->add('dependent-class',DependentClass::class);
 
 
         // make assertion 
-        $this->assertInstanceOf(DependantClass::class,$container->get('dependant-class'));
+        $this->assertInstanceOf(DependentClass::class,$container->get('dependent-class'));
 
     }
 
@@ -38,6 +41,36 @@ class ContainerTest extends TestCase{
 
 
     }
+
+    public function testContainerHasService(){
+
+        //setup 
+        $container = new Container();
+
+        $container->add('dependent-class',DependentClass::class);
+
+        $this->assertTrue($container->has('dependent-class'));
+
+        $this->assertFalse($container->has('non-exist'));
+
+    }
+
+    public function testServiceCanBeRecursivelyAutowired(){
+
+        $container = new Container();
+
+        $container->add('dependent-service',DependentClass::class);
+
+        $dependentService = $container->get('dependent-service');
+
+        $depencyService = $dependentService->getDependency();
+
+        $this->assertInstanceOf(DependencyClass::class,$dependentService->getDependency());
+
+        $this->assertInstanceOf(SubDependencyClass::class,$depencyService->getSubDependency());
+
+    }
+
 
 
 }
