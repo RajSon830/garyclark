@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Controller\Widget;
 use Raj\Framework\Http\Response;
+use App\Controller\AbstractCotroller;
 
-class HomeController{
+class HomeController extends AbstractCotroller {
 
     public function __construct(private Widget $widget)
     {
@@ -13,9 +14,8 @@ class HomeController{
 
     public function index(): Response
     {
-        $content = "<h1>Hello {$this->widget->name}</h1>";
-
-        return new Response($content);
+       
+        return $this->render('home.html.twig',['name'=>$this->widget->name]);
     }
 
 }

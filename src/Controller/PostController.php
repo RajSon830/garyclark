@@ -4,15 +4,13 @@ namespace App\Controller;
 
 use Raj\Framework\Http\Response;
 
-class PostController{
+class PostController extends AbstractCotroller{
 
     public function show(int $id):Response{
 
-
-        $content = "This is post $id";
-
-
-        return new Response($content);
+        return $this->render('posts.html.twig',[
+            'postId'=>$id
+        ]);
     }
 
 

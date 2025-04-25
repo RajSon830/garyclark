@@ -3,7 +3,8 @@
     "description": "A PHP framework tutorial project",
     "autoload": {
         "psr-4": {
-            "Raj\\Framework\\":"src/"
+            "Raj\\Framework\\":"src/",
+            "Raj\\Controllers\\":"controllers/"
         }
     },
     "autoload-dev": {

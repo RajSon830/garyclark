@@ -1,5 +1,6 @@
-<?php 
+<?php
 
+use App\Controller\AbstractCotroller;
 use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
@@ -8,8 +9,15 @@ use Raj\Framework\Http\Kernel\Kernel;
 use Raj\Framework\Routing\Router;
 use Raj\Framework\Routing\RouterInterface;
 use Symfony\Component\Dotenv\Dotenv;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 $routes = include BASE_PATH.'/routes/web.php';
+
+/**
+ * Twig location files loader 
+ */
+$templatesPath = BASE_PATH.'/templates';
 
 /**
  * Loading Environemnt file 
@@ -19,6 +27,7 @@ $dotenv->load(BASE_PATH.'/.env');
 // finish loading environment file
 
 $appEnv = $_SERVER['APP_ENV'];
+
 
 $container = new Container();
 
@@ -36,5 +45,13 @@ $container->add(RouterInterface::class,Router::class);
 $container->extend(RouterInterface::class)->addMethodCall('setRoutes',[new ArrayArgument($routes)]);
 
 $container->add(Kernel::class)->addArgument(RouterInterface::class)->addArgument($container);
+
+$container->addShared('filesystem-loader',FilesystemLoader::class)->addArgument(new StringArgument($templatesPath));
+
+$container->addShared('twig',Environment::class)->addArgument('filesystem-loader');
+
+$container->add(AbstractCotroller::class);
+
+$container->inflector(AbstractCotroller::class)->invokeMethod('setContainer',[$container]);
 
 return $container;
