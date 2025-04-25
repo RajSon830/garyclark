@@ -11,8 +11,12 @@ use Symfony\Component\Dotenv\Dotenv;
 
 $routes = include BASE_PATH.'/routes/web.php';
 
+/**
+ * Loading Environemnt file 
+ */
 $dotenv = new Dotenv();
 $dotenv->load(BASE_PATH.'/.env');
+// finish loading environment file
 
 $appEnv = $_SERVER['APP_ENV'];
 
