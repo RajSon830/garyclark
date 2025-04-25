@@ -7,6 +7,7 @@ use FastRoute\Dispatcher;
 use Raj\Framework\Routing\RouterInterface;
 use Raj\Framework\Http\Request;
 use FastRoute\RouteCollector;
+use Psr\Container\ContainerInterface;
 use Raj\Framework\Http\HttpException;
 use Raj\Framework\Http\HttpRequestMethodException;
 
@@ -14,7 +15,9 @@ use function FastRoute\simpleDispatcher;
 
 class Router implements RouterInterface{
 
-    public function dispatch(Request $request){
+    private array $routes;
+
+    public function dispatch(Request $request,ContainerInterface $container){
 
         $routerInfo = $this->extractRouteInfo($request);
 
@@ -25,8 +28,9 @@ class Router implements RouterInterface{
          * 
          */
         if(is_array($handler)){
-            [$controller,$method]=$handler;
-            $handler = [new $controller,$method];
+            [$controllerId,$method]=$handler;
+            $controller = $container->get($controllerId);
+            $handler = [$controller,$method];
         }
 
         return [$handler,$vars];
@@ -37,9 +41,9 @@ class Router implements RouterInterface{
 
         $dispatcher = simpleDispatcher(function(RouteCollector $routeCollector){
 
-            $routes = include BASE_PATH.'/routes/web.php';
+            //$routes = include BASE_PATH.'/routes/web.php';
 
-            foreach($routes as $route){
+            foreach($this->routes as $route){
                 // unpacking $route array store in web.php
                 $routeCollector->addRoute(...$route);
             }
@@ -63,6 +67,12 @@ class Router implements RouterInterface{
                 throw $e;
         }
 
+    }
+
+
+    public function setRoutes(array $routes)
+    {
+        $this->routes = $routes;
     }
 
 }

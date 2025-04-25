@@ -4,6 +4,8 @@ namespace Raj\Framework\Http;
 
 class Response{
 
+    public const HTTP_INTERNET_SERVER_ERROR = 500;
+
     public function __construct(private ?string $content='',
     private int $status=200,
     private array $header=[]){

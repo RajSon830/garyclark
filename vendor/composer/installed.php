@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '850ade3b5422f15fd6251d4255fa5c11058e9bb4',
+        'reference' => '3e85dbb32cff442f6c166eaa20a1392732bf8284',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,9 +13,18 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '850ade3b5422f15fd6251d4255fa5c11058e9bb4',
+            'reference' => '3e85dbb32cff442f6c166eaa20a1392732bf8284',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'league/container' => array(
+            'pretty_version' => '5.x-dev',
+            'version' => '5.9999999.9999999.9999999-dev',
+            'reference' => '7baf6c994c919875f36fbaa8a4e1925614e8abdf',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../league/container',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -28,14 +37,37 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'orno/di' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '~2.0',
+            ),
+        ),
         'php/framework-pro' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '7768a17322d9d6bc83a57c03dab8814dffb935f0',
+            'reference' => 'e72cdd83b4f6ff97d1fcdbb875c39c325da4e359',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php/framework-pro',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'psr/container' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '707984727bd5b2b670e59559d3ed2500240cf875',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/container',
+            'aliases' => array(
+                0 => '2.0.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
+        'psr/container-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '^1.0',
+            ),
         ),
         'symfony/deprecation-contracts' => array(
             'pretty_version' => 'dev-main',
@@ -46,6 +78,15 @@
             'aliases' => array(
                 0 => '3.6.x-dev',
             ),
+            'dev_requirement' => false,
+        ),
+        'symfony/dotenv' => array(
+            'pretty_version' => '7.3.x-dev',
+            'version' => '7.3.9999999.9999999-dev',
+            'reference' => '28347a897771d0c28e99b75166dd2689099f3045',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/dotenv',
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/polyfill-mbstring' => array(

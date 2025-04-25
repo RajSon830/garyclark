@@ -13,6 +13,7 @@
     ],
     "require": {
         "symfony/var-dumper": "^7.2",
-        "php/framework-pro": "dev-master"
+        "php/framework-pro": "dev-master",
+        "symfony/dotenv": "7.3.x-dev"
     }
 }
