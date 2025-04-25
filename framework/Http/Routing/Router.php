@@ -7,6 +7,7 @@ use FastRoute\Dispatcher;
 use Raj\Framework\Http\Routing\RouterInterface;
 use Raj\Framework\Http\Request;
 use FastRoute\RouteCollector;
+use Raj\Framework\Http\HttpException;
 use Raj\Framework\Http\HttpRequestMethodException;
 
 use function FastRoute\simpleDispatcher;
@@ -19,9 +20,16 @@ class Router implements RouterInterface{
 
         [$handler,$vars] = $routerInfo;
 
-        [$controller,$method] = $handler;
+        /**
+         * Checking is it array or not because it might be possible it is just a function instead of Controller
+         * 
+         */
+        if(is_array($handler)){
+            [$controller,$method]=$handler;
+            $handler = [new $controller,$method];
+        }
 
-        return [[new $controller,$method],$vars];
+        return [$handler,$vars];
 
     }
 
@@ -46,10 +54,13 @@ class Router implements RouterInterface{
                 return [$routeInfo[1],$routeInfo[2]];
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $allowedMethods = implode(',',$routeInfo[1]);
-                throw new HttpRequestMethodException("This allowed methdos are $allowedMethods");
+                $e=new HttpRequestMethodException("This allowed methdos are $allowedMethods");
+                $e->setStatusCode(405);
+                throw $e;
             default:
-                throw new Exception('Not Found');
-
+                $e=new HttpException('Not Found');
+                $e->setStatusCode(404);
+                throw $e;
         }
 
     }

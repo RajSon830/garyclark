@@ -8,6 +8,10 @@ class Response{
     private int $status=200,
     private array $header=[]){
 
+        // must be set before sending content
+        // so best create an instantiation like here
+        http_response_code($this->status);
+
     }
 
     public function send(){
