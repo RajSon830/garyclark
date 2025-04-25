@@ -1,10 +1,10 @@
 <?php
 
-namespace Raj\Framework\Http\Routing;
+namespace Raj\Framework\Routing;
 
 use Exception;
 use FastRoute\Dispatcher;
-use Raj\Framework\Http\Routing\RouterInterface;
+use Raj\Framework\Routing\RouterInterface;
 use Raj\Framework\Http\Request;
 use FastRoute\RouteCollector;
 use Raj\Framework\Http\HttpException;

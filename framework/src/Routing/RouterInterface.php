@@ -1,6 +1,6 @@
 <?php 
 
-namespace Raj\Framework\Http\Routing;
+namespace Raj\Framework\Routing;
 
 use Raj\Framework\Http\Request;
 

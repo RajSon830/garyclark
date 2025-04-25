@@ -1,13 +1,11 @@
 <?php 
 
-namespace Raj\Framework\Http\Kernel;
+namespace Raj\Framework\Kernel;
 
 use Raj\Framework\Http\Request;
 use Raj\Framework\Http\Response;
 use Exception;
-use Raj\Framework\Http\HttpException;
-use Raj\Framework\Http\HttpRequestMethodException;
-use Raj\Framework\Http\Routing\Router;
+use Raj\Framework\Routing\Router;
 
 class Kernel{
     
@@ -26,12 +24,9 @@ class Kernel{
 
             $resonse = call_user_func_array($routeHandler,$vars);
 
-        }
-        catch(HttpException $exception){
-            $resonse = new Response($exception->getMessage(),$exception->getStatusCode());
-        }
-        catch(Exception $exception){
-            $resonse = new Response($exception->getMessage(),500);
+        }catch(Exception $exception){
+
+            $resonse = new Response($exception->getMessage(),400);
         }
 
         return $resonse;
