@@ -9,6 +9,7 @@ use Exception;
 use Psr\Container\ContainerInterface;
 use Raj\Framework\Http\HttpException;
 use Raj\Framework\Http\HttpRequestMethodException;
+use Raj\Framework\Http\Middleware\RequestHandlerInterface;
 use Raj\Framework\Routing\Router;
 use Raj\Framework\Routing\RouterInterface;
 
@@ -19,7 +20,9 @@ class Kernel{
    
     public function __construct(
         private RouterInterface $router,
-        private ContainerInterface $container){
+        private ContainerInterface $container,
+        private RequestHandlerInterface $requestHandlerInterface
+        ){
 
             $this->appEnv = $this->container->get('APP_ENV');
 
@@ -30,18 +33,16 @@ class Kernel{
 
         try{
 
+            $response = $this->requestHandlerInterface->handle($request);
             #throw new Exception("Hekki");
 
-            [$routeHandler,$vars] = $this->router->dispatch($request,$this->container);
-
-            $resonse = call_user_func_array($routeHandler,$vars);
-
+            
         }catch(Exception $exception){
 
-            $resonse = $this->createExceptionResponse($exception);
+            $response = $this->createExceptionResponse($exception);
         }
 
-        return $resonse;
+        return $response;
     }
 
     /**
@@ -61,4 +62,10 @@ class Kernel{
 
     }
 
+
+
+    public function terminate(Request $request,Response $response){
+
+        $request->getSession()?->clearFlash();
+    }
 }

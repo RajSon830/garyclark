@@ -2,7 +2,11 @@
 
 namespace Raj\Framework\Http;
 
+use Raj\Framework\Session\SessionInterface;
+
 class Request{
+
+    private SessionInterface $session;
 
     public function __construct(
         private readonly array $get,
@@ -32,6 +36,14 @@ class Request{
 
     public function getPostParams(string $key){
         return $this->post[$key];
+    }
+
+    public function setSession(SessionInterface $session){
+        $this->session = $session;
+    }
+
+    public function getSession(){
+        return $this->session;
     }
 
 }

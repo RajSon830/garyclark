@@ -39,3 +39,5 @@ $response = $kernel->handle($request);
 #dd($response);
 
 $response->send();
+
+$kernel->terminate($request,$response);

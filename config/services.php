@@ -8,6 +8,8 @@ use League\Container\ReflectionContainer;
 use Raj\Framework\Console\Application;
 use Raj\Framework\Dbal\ConnectionFactory;
 use Raj\Framework\Http\Kernel\Kernel;
+
+use Raj\Framework\Http\Middleware\RouterDispatch;
 use Raj\Framework\Routing\Router;
 use Raj\Framework\Routing\RouterInterface;
 use Raj\Framework\Session\SessionInterface;
@@ -16,6 +18,9 @@ use Symfony\Component\Dotenv\Dotenv;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Raj\Framework\Session\Session;
+use Raj\Framework\Http\Middleware\RequestHandlerInterface;
+use Raj\Framework\Http\Middleware\RequestHandler;
+
 
 $routes = include BASE_PATH.'/routes/web.php';
 
@@ -65,7 +70,18 @@ $container->add(RouterInterface::class,Router::class);
 // as it is initialized calle following method;
 $container->extend(RouterInterface::class)->addMethodCall('setRoutes',[new ArrayArgument($routes)]);
 
-$container->add(Kernel::class)->addArgument(RouterInterface::class)->addArgument($container);
+// adding requestHandlerInterface
+$container->add(
+    RequestHandlerInterface::class,
+    RequestHandler::class
+)->addArgument($container);
+
+$container->add(Kernel::class)
+    ->addArguments([
+        RouterInterface::class,
+        $container,
+        RequestHandlerInterface::class
+    ]);
 
 $container->add(\Raj\Framework\Console\Kernel::class)->addArguments([$container,Application::class]);
 
@@ -91,5 +107,7 @@ $container->add(ConnectionFactory::class)->addArgument(new ArrayArgument($mysqlC
 $container->addShared(\Doctrine\DBAL\Connection::class,function() use ($container): \Doctrine\DBAL\Connection{
     return $container->get(ConnectionFactory::class)->create();
 });
+
+$container->add(RouterDispatch::class)->addArguments([RouterInterface::class,$container]);
 
 return $container;

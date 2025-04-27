@@ -12,7 +12,7 @@ use Raj\Framework\Session\SessionInterface;
 
 class PostController extends AbstractCotroller{
 
-    public function __construct(private PostMapper $postMapper,private PostRepository $postRepository,private SessionInterface $session){
+    public function __construct(private PostMapper $postMapper,private PostRepository $postRepository){
 
     }
 
@@ -48,7 +48,7 @@ class PostController extends AbstractCotroller{
 
         $this->postMapper->save($post);
         # dd($post);
-        $this->session->setFlash('success',sprintf('Post "%s" successfully created',$title));
+        $this->request->getSession()->setFlash('success',sprintf('Post "%s" successfully created',$title));
 
         return new RedirectResponse('/post');
     }
