@@ -2,7 +2,9 @@
 
 use App\Controller\HomeController;
 use App\Controller\PostController;
+use App\Controller\RegisterController;
 use Raj\Framework\Http\Response;
+
 
 return [
     ['GET','/',[HomeController::class,'index']],
@@ -11,5 +13,6 @@ return [
     ['POST','/post',[PostController::class,'store']],
     ['GET','/hello/{name:.+}',function(string $name){
         return new Response("Hello World ". $name);
-    }]
+    }],
+    ['GET','/register',[RegisterController::class,'index']]
 ];
