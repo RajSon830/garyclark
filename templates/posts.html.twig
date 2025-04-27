@@ -1,5 +1,8 @@
-<html>
+{% extends 'base.html.twig' %}
 
-   your posted id is {{ postId }}!!
+{% block main %}
 
-</html>
+<h1>{{ post.title }}</h1>
+<p>{{ post.body }}</p>
+
+{% endblock %}

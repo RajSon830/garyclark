@@ -30,4 +30,8 @@ class Request{
         return strtok($this->server['REQUEST_URI'],'?');
     }
 
+    public function getPostParams(string $key){
+        return $this->post[$key];
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace Raj\Framework\Http\Kernel;
 
+use Doctrine\DBAL\Connection;
 use Raj\Framework\Http\Request;
 use Raj\Framework\Http\Response;
 use Exception;

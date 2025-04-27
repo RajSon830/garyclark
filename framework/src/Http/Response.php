@@ -8,7 +8,7 @@ class Response{
 
     public function __construct(private ?string $content='',
     private int $status=200,
-    private array $header=[]){
+    private array $headers=[]){
 
         // must be set before sending content
         // so best create an instantiation like here
@@ -22,6 +22,14 @@ class Response{
 
     public function setContent(?string $content):void{
         $this->content = $content;
+    }
+
+    public function getStatus(){
+        return $this->status;
+    }
+
+    public function getHeader(string $header){
+        return $this->headers[$header];
     }
 
 }

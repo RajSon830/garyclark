@@ -2,6 +2,7 @@
 
 namespace Raj\Framework\Routing;
 
+use App\Controller\AbstractCotroller;
 use Exception;
 use FastRoute\Dispatcher;
 use Raj\Framework\Routing\RouterInterface;
@@ -30,8 +31,17 @@ class Router implements RouterInterface{
         if(is_array($handler)){
             [$controllerId,$method]=$handler;
             $controller = $container->get($controllerId);
+
+            if(is_subclass_of($controller,AbstractCotroller::class)){
+                
+                $controller->setRequest($request);
+            }
+
+
             $handler = [$controller,$method];
         }
+
+        //$vars['request']=$request;
 
         return [$handler,$vars];
 

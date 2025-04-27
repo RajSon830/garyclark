@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+
+<?php 
+
+// set a base path 
+
+use Raj\Framework\Console\Kernel;
+
+define("BASE_PATH",dirname(__DIR__));
+
+// import autoload.php to file to setup autoloader.
+require_once BASE_PATH.'/vendor/autoload.php';
+
+// require autoloading
+
+// require the container 
+$container = require BASE_PATH.'/config/services.php';
+
+// get the console Kernel from the container
+$kernel = $container->get(Kernel::class);
+
+// Call a handle method on the kernel, return the console application status
+$status = $kernel->handle();
+
+// exit with that status
+exit($status);
