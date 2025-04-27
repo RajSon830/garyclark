@@ -5,6 +5,7 @@ namespace Raj\Framework\Authentication;
 use App\Entity\User;
 use App\Repository\AuthRepositoryInterface;
 use Raj\Framework\Authentication\AuthUserInterface;
+use Raj\Framework\Session\Session;
 use Raj\Framework\Session\SessionInterface;
 
 class SessionAuthentication implements SessionAuthInterface{
@@ -26,20 +27,18 @@ class SessionAuthentication implements SessionAuthInterface{
         }
 
         // does the hashed user pw match the hash of the attempted passsword
-        if(password_verify($password,$user->getPassword())){
+        if(!password_verify($password,$user->getPassword())){
             // you log in user in
-            $this->login($user);
-
-            return true;
-
+            return false;
         }
 
 
         // if yes, log the user in 
+        $this->login($user);
 
         // return true 
 
-        return false;
+        return true;
     }
 
     public function login(AuthUserInterface $user){
@@ -47,13 +46,15 @@ class SessionAuthentication implements SessionAuthInterface{
         // Start a session
         $this->session->start();
        // Log the user in 
-        $this->session->set('auth_id',$user->getAuthId());
+        $this->session->set(Session::AUTH_KEY,$user->getAuthId());
         // Set the user 
         $this->user = $user;
 
     }
 
     public function logout(){
+
+        $this->session->remove(Session::AUTH_KEY);
 
     }
 

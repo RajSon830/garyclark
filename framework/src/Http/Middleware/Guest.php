@@ -6,9 +6,8 @@ use Raj\Framework\Http\RedirectResponse;
 use Raj\Framework\Http\Response;
 use Raj\Framework\Http\Request;
 use Raj\Framework\Session\SessionInterface;
-use Raj\Framework\Session\Session;
 
-class Authenticate implements MiddlewareInterface{
+class Guest implements MiddlewareInterface{
 
     private bool $authenticated = true;
 
@@ -19,10 +18,9 @@ class Authenticate implements MiddlewareInterface{
 
     public function process(Request $request,RequestHandlerInterface $requestHandlerInterface):Response{
 
-        #$this->session->start();
+        $this->session->start();
 
-        if(!$this->session->has(Session::AUTH_KEY)){
-            $this->session->setFlash('error','Please Sign in Again');
+        if($this->session->has('auth_id')){
             return new RedirectResponse('/login');
         }
 

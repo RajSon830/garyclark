@@ -5,12 +5,13 @@ namespace App\Controller;
 
 use App\Form\User\RegistrationForm;
 use App\Repository\UserMapper;
+use Raj\Framework\Authentication\SessionAuthentication;
 use Raj\Framework\Http\RedirectResponse;
 
 class RegisterController extends AbstractCotroller{
 
 
-        public function __construct(private UserMapper $userMapper){
+        public function __construct(private UserMapper $userMapper,private SessionAuthentication $authComponent){
 
         }
 
@@ -54,9 +55,10 @@ class RegisterController extends AbstractCotroller{
                 // Add a session success message
 
                 // Log the user in
+                $this->authComponent->login($user);
 
                 // Redirect to somewhere useful
-                return new RedirectResponse('/');
+                return new RedirectResponse('/dashboard');
 
 
         }

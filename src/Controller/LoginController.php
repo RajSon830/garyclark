@@ -40,4 +40,17 @@ class LoginController extends AbstractCotroller{
 
     }
 
+
+
+    public function logout(): Response{
+
+        // log the user out
+        $this->authComponent->logout();
+
+        // set a logout session massage
+        $this->request->getSession()->setFlash('success','Bye.. See you soon');
+
+        // redirect a login page
+        return new RedirectResponse('/login');
+    }
 }

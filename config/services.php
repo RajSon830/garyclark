@@ -11,6 +11,7 @@ use Raj\Framework\Console\Application;
 use Raj\Framework\Dbal\ConnectionFactory;
 use Raj\Framework\Http\Kernel\Kernel;
 
+use Raj\Framework\Http\Middleware\ExtractRouteInfo;
 use Raj\Framework\Http\Middleware\RouterDispatch;
 use Raj\Framework\Routing\Router;
 use Raj\Framework\Routing\RouterInterface;
@@ -71,7 +72,7 @@ $container->delegate(new ReflectionContainer(true));
 $container->add(RouterInterface::class,Router::class);
 
 // as it is initialized calle following method;
-$container->extend(RouterInterface::class)->addMethodCall('setRoutes',[new ArrayArgument($routes)]);
+//$container->extend(RouterInterface::class)->addMethodCall('setRoutes',[new ArrayArgument($routes)]);
 
 // adding requestHandlerInterface
 $container->add(
@@ -114,6 +115,8 @@ $container->addShared(\Doctrine\DBAL\Connection::class,function() use ($containe
 $container->add(RouterDispatch::class)->addArguments([RouterInterface::class,$container]);
 
 $container->add(SessionAuthentication::class)->addArguments([UserRepository::class,SessionInterface::class]);
+
+$container->add(ExtractRouteInfo::class)->addArgument(new ArrayArgument($routes));
 
 
 return $container;

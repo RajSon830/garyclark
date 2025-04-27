@@ -1,13 +1,11 @@
-<?php 
+<?php
 
 namespace Raj\Framework\Routing;
 
-use Psr\Container\ContainerInterface;
 use Raj\Framework\Http\Request;
+use Psr\Container\ContainerInterface;
 
-interface RouterInterface{
-
-    public function dispatch(Request $request,ContainerInterface $container);
-
-    public function setRoutes(array $routes);
+interface RouterInterface
+{
+    public function dispatch(Request $request, ContainerInterface $container);
 }

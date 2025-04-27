@@ -7,6 +7,9 @@ use Raj\Framework\Session\SessionInterface;
 class Request{
 
     private SessionInterface $session;
+    private mixed $routeHandler;
+    private array $routeHandlerArgs;
+
 
     public function __construct(
         private readonly array $get,
@@ -45,5 +48,22 @@ class Request{
     public function getSession(){
         return $this->session;
     }
+
+    public function setRouteHandler(mixed $routeHandler){
+        $this->routeHandler = $routeHandler;
+    }
+
+    public function getRouteHandlerArgs():array{
+        return $this->routeHandlerArgs;
+    }
+
+    public function setRouteHandlerArgs(array $routeHandlerArgs){
+        $this->routeHandlerArgs = $routeHandlerArgs;
+    }
+
+    public function getRouteHandler(){
+        return $this->routeHandler;
+    }
+
 
 }

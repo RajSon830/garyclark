@@ -7,12 +7,12 @@ use Raj\Framework\Http\Middleware\RequestHandlerInterface;
 use Raj\Framework\Http\Response;
 use Raj\Framework\Http\Request;
 use Raj\Framework\Http\Middleware\Authenticate;
-use Raj\Framework\Http\Middleware\Success;
+use Raj\Framework\Http\Middleware\ExtractRouteInfo;
 
 
 class RequestHandler implements RequestHandlerInterface{
 
-    private array $middleware = [StartSession::class,Authenticate::class,RouterDispatch::class];
+    private array $middleware = [ExtractRouteInfo::class,StartSession::class,RouterDispatch::class];
 
     public function __construct(private ContainerInterface $container){
 
@@ -37,5 +37,13 @@ class RequestHandler implements RequestHandlerInterface{
         $response = $middleware->process($request,$this);
 
         return $response;
+    }
+
+
+    public function injectMiddleware(array $middleware){
+        
+        array_splice($this->middleware,0,0,$middleware);
+
+        dd($this->middleware);
     }
 }
