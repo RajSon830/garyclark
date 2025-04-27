@@ -1,10 +1,12 @@
 <?php
 
 use App\Controller\AbstractCotroller;
+use App\Repository\UserRepository;
 use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use Raj\Framework\Authentication\SessionAuthentication;
 use Raj\Framework\Console\Application;
 use Raj\Framework\Dbal\ConnectionFactory;
 use Raj\Framework\Http\Kernel\Kernel;
@@ -20,6 +22,7 @@ use Twig\Loader\FilesystemLoader;
 use Raj\Framework\Session\Session;
 use Raj\Framework\Http\Middleware\RequestHandlerInterface;
 use Raj\Framework\Http\Middleware\RequestHandler;
+
 
 
 $routes = include BASE_PATH.'/routes/web.php';
@@ -109,5 +112,8 @@ $container->addShared(\Doctrine\DBAL\Connection::class,function() use ($containe
 });
 
 $container->add(RouterDispatch::class)->addArguments([RouterInterface::class,$container]);
+
+$container->add(SessionAuthentication::class)->addArguments([UserRepository::class,SessionInterface::class]);
+
 
 return $container;

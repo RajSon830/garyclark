@@ -1,19 +1,63 @@
-<?php 
-
+<?php
 
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Raj\Framework\Authentication\AuthUserInterface;
 
-class User{
+/**
+ * AuthUserInterface shows that we can use this class to login
+ */
+class User implements AuthUserInterface
+{
+    public function __construct(
+        private ?int $id,
+        private string $username,
+        private string $password,
+        private DateTimeImmutable $createdAt
+    ) {}
 
-
-    public function __construct(private ?int $id,private string $username,private string $password,private \DateTimeImmutable $createdAt){
-
+    public static function create(string $username, string $plainPassword): self
+    {
+        return new self(
+            null,
+            $username,
+            password_hash($plainPassword, PASSWORD_DEFAULT),
+            new DateTimeImmutable()
+        );
     }
 
-    public static function create(string $username,string $plainPassword):self{
-        return new self(null,$username,password_hash($plainPassword,PASSWORD_DEFAULT),new DateTimeImmutable());
+    public function getUsername(): string
+    {
+        return $this->username;
     }
 
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getAuthId(): int|string{
+        return $this->id;
+    }
 }

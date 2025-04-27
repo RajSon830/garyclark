@@ -79,8 +79,7 @@
 </nav>
 
 <main class="container">
-
-    {% if session().hasFlash('success') %}
+ {% if session().hasFlash('success') %}
         <div class="alert alert-success" role="alert">
             <ul style="list-style: none">
                 {% for message in session().getFlash('success') %}
@@ -90,6 +89,15 @@
         </div>
     {% endif %}
 
+    {% if session().hasFlash('error') %}
+        <div class="alert alert-warning" role="alert">
+            <ul style="list-style: none">
+                {% for message in session().getFlash('error') %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
     <div class="bg-light p-5 rounded">
         {% block main %} {% endblock %}
